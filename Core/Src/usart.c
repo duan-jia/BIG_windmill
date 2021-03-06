@@ -9,10 +9,10 @@
   * <h2><center>&copy; Copyright (c) 2021 STMicroelectronics.
   * All rights reserved.</center></h2>
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software component is licensed by ST under Ultimate Liberty license
+  * SLA0044, the "License"; You may not use this file except in compliance with
+  * the License. You may obtain a copy of the License at:
+  *                             www.st.com/SLA0044
   *
   ******************************************************************************
   */
@@ -21,7 +21,9 @@
 #include "usart.h"
 
 /* USER CODE BEGIN 0 */
-
+//#include "tim.h"
+uint8_t uart_tmp = 0;
+uint8_t uart1_buf[18] = {0};
 /* USER CODE END 0 */
 
 UART_HandleTypeDef huart2;
@@ -100,6 +102,26 @@ void HAL_UART_MspDeInit(UART_HandleTypeDef* uartHandle)
 }
 
 /* USER CODE BEGIN 1 */
+void UART2_DMARxStart(void)
+{
+    HAL_UART_Receive_DMA(&huart2,uart1_buf,18);
+}
+
+void HAL_UART_RxCpltcallback(UART_HandleTypeDef *huart)
+{
+    /* Prevent unused argument(s) compilation warning */
+    UNUSED(huart);
+    /* NOTE: This function should not be modified, when the callback is needed,
+             the HAL_UART_RxCpltCallback could be implemented in the user file
+    */
+    if(huart->Instance == USART1)
+    {
+//        Observer.Rx.DR16_Rate++;
+        HAL_UART_Receive_DMA(&huart2,uart1_buf,18);
+    }
+
+}
+
 
 /* USER CODE END 1 */
 
