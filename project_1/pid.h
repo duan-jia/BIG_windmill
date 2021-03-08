@@ -3,17 +3,17 @@
 #include "stdio.h"
 typedef struct
 {
-    /*PIDËã·¨½Ó¿Ú±äÁ¿£¬ÓÃÓÚ¸øÓÃ»§»ñÈ¡»òĞŞ¸ÄPIDËã·¨µÄÌØĞÔ*/
-    float kp; //±ÈÀıÏµÊı
-    float ki; //»ı·ÖÏµÊı
-    float kd; //Î¢·ÖÏµÊı
+    /*PIDç®—æ³•æ¥å£å˜é‡ï¼Œç”¨äºç»™ç”¨æˆ·è·å–æˆ–ä¿®æ”¹PIDç®—æ³•çš„ç‰¹æ€§*/
+    float kp; //æ¯”ä¾‹ç³»æ•°
+    float ki; //ç§¯åˆ†ç³»æ•°
+    float kd; //å¾®åˆ†ç³»æ•°
 
-    float errNow;  //µ±Ç°µÄÎó²î
-    float dCtrOut; //¿ØÖÆÔöÁ¿Êä³ö
-    float ctrOut;  //¿ØÖÆÊä³ö
+    float errNow;  //å½“å‰çš„è¯¯å·®
+    float dCtrOut; //æ§åˆ¶å¢é‡è¾“å‡º
+    float ctrOut;  //æ§åˆ¶è¾“å‡º
 
-    float IncLim; //ÔöÁ¿ÏŞ·ù
-    /*PIDËã·¨ÄÚ²¿±äÁ¿£¬ÆäÖµ²»ÄÜĞŞ¸Ä*/
+    float IncLim; //å¢é‡é™å¹…
+    /*PIDç®—æ³•å†…éƒ¨å˜é‡ï¼Œå…¶å€¼ä¸èƒ½ä¿®æ”¹*/
     float errOld1;
     float errOld2;
 } PID_IncrementType;
@@ -23,8 +23,8 @@ typedef struct
     float kp;
     float ki;
     float kd;
-    float errILim_up;   //»ı·ÖÉÏÏŞ
-    float errILim_down; //»ı·ÖÉÏÏŞ
+    float errILim_up;   //ç§¯åˆ†ä¸Šé™
+    float errILim_down; //ç§¯åˆ†ä¸Šé™
     float errLim;
     float errNow;
     float errOld;

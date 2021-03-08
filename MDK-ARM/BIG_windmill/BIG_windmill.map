@@ -905,8 +905,6 @@ Section Cross References
     windmill.o(i.MOVE_LPfout) refers to windmill.o(.bss) for .bss
     windmill.o(i.MOVE_PidRun) refers to pid.o(i.pid_increment_update) for pid_increment_update
     windmill.o(i.MOVE_PidRun) refers to windmill.o(.bss) for .bss
-    windmill.o(i.MOVE_Process) refers to memcpya.o(.text) for __aeabi_memcpy4
-    windmill.o(i.MOVE_Process) refers to windmill.o(i.MOVE_GetMoveData) for MOVE_GetMoveData
     windmill.o(i.MOVE_Process) refers to windmill.o(i.MOVE_LPFIn) for MOVE_LPFIn
     windmill.o(i.MOVE_Process) refers to windmill.o(i.MOVE_PidRun) for MOVE_PidRun
     windmill.o(i.MOVE_Process) refers to windmill.o(i.MOVE_LPfout) for MOVE_LPfout
@@ -1544,7 +1542,7 @@ Removing Unused input sections from the image.
     Removing windmill.o(i.MOVE_LPFIn), (92 bytes).
     Removing windmill.o(i.MOVE_LPfout), (96 bytes).
     Removing windmill.o(i.MOVE_PidRun), (56 bytes).
-    Removing windmill.o(i.MOVE_Process), (50 bytes).
+    Removing windmill.o(i.MOVE_Process), (22 bytes).
     Removing windmill.o(i.MOVE_pidinit), (40 bytes).
     Removing windmill.o(i.RGB_LED_Write0), (44 bytes).
     Removing windmill.o(i.RGB_LED_Write1), (44 bytes).
@@ -1559,7 +1557,7 @@ Removing Unused input sections from the image.
     Removing dfixi.o(.text), (62 bytes).
     Removing depilogue.o(.text), (186 bytes).
 
-601 unused section(s) (total 37847 bytes) removed from the image.
+601 unused section(s) (total 37819 bytes) removed from the image.
 
 ==============================================================================
 
