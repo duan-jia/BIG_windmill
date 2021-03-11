@@ -1,17 +1,20 @@
 #include "windmill.h"
-#include  "gpio.h"
-#include "can.h"
 
-#define     RGB_LED_HIGH    (HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_SET))
-#define     RGB_LED_LOW     (HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_RESET))
 #define     SPEED1 500
 #define     SPEED2 1000 //速度未知
 #define     SPEED3 0
 
 
 
+
 /*************************order-control***************************/
+uint16_t Start;
+uint16_t run_time_num, flow_num ;//flow_num控制流动时间间隔,run_time_num用于判定是否超时
+uint8_t target, success_count, Random_Num;
 uint8_t queue[20], st, ed, queue_num;
+uint8_t number[] = {2,3,4,5};
+_Bool color_id;
+int start0 ,count , period_count ;
 
 uint8_t queue_get(void)
 {
@@ -24,6 +27,7 @@ uint8_t queue_get(void)
 		  if(st > 19) st -= 20;
 	    return queue[st];
 	  }
+		return  0;
 }
 
 void queue_insert(uint8_t control_id)
@@ -39,125 +43,220 @@ void queue_clear(void)
   st = ed = queue_num = 0;
 }
 
-void Run_led(void)
+void param_init(void)
 {
-	color_id?RGB_LED_Write_24Bits(0x20,0X7F,0X00):RGB_LED_Write_24Bits(0x60,0X00,0X43);
-	//控制灯的流动效果，以后再做
-}
-
-
-
-
-/*************************WS2812——LED***************************/
-void delay_us(uint16_t n)
-{
-	  while(n) n--;
-}
-
-void RGB_LED_Write0(void)
-{
-	 RGB_LED_HIGH;
-	 delay_us(6);
-   RGB_LED_LOW;
-	 delay_us(21);
-}
-
-void RGB_LED_Write1(void)
-{
-	 RGB_LED_HIGH;
-	 delay_us(25);
-	 RGB_LED_LOW;
-	 delay_us(3);
-}
-
-void RGB_LED_Write_Byte(uint8_t byte)
-{
-	uint8_t i;
-	for(i=0;i<8;i++)
-			{
-					if(byte&0x80)
-					{
-									RGB_LED_Write1();
-					}
-					else
-					{
-									RGB_LED_Write0();
-					}
-			byte <<= 1;
-	}
-}
-
-void RGB_LED_Write_24Bits(uint8_t green,uint8_t red,uint8_t blue)//GRB......
-{
-	RGB_LED_Write_Byte(green);
-	RGB_LED_Write_Byte(red);
-	RGB_LED_Write_Byte(blue);
-}
-
-void Reset(void)
-{
-	RGB_LED_LOW;
-	delay_us(2900);
-}
-/*************************motor***************************/
-
-move_t move = {0};
-
-void MOVE_pidinit(void)
-{
-	pid_init_increment(&move.M3508.PidSpeed,4,0.005,0.004,9999);//pid为整定
-}
-
-
-void MOVE_GetMoveData()
-{
-	move.M3508.Rx.Speed = Tar_speed;
-}
-
-
-
-void MOVE_PidRun(void)
-{
+	target = 1;
+	Start = 1;
+	success_count = 0;
+	Random_Num = 0;
+	run_time_num = 0;
+	flow_num = 0;
 	
-	move.M3508.LPf.Speed=0.8 * move.M3508.Rx.Speed + 0.2 * move.M3508.LPf.Speed;//滤波器
-	move.M3508.Output = pid_increment_update(move.M3508.TarSpeed, move.M3508.LPf.Speed, &move.M3508.PidSpeed);
-	move.M3508.OutputLpf = 0.8 * move.M3508.Output + 0.2 * move.M3508.OutputLpf;//滤波器
+	st = ed = 0;
+	queue_num = 0;
+	color_id = 0;
+	memset(queue, 0, sizeof queue);
 }
 
-void MOVE_CanTransmit(void)
+/******light water*********/
+void Run_led()
 {
-	move.CanData[6]=(uint8_t)(move.M3508.OutputLpf>>8);
-	move.CanData[7]=(uint8_t)(move.M3508.OutputLpf);
-	CAN1_Transmit(0x200,move.CanData);
+		  if(success_count == 5) return;
+	    if(run_time_num > 156) {queue_insert(led_reset);return;}//超过2.5s未击中
+			run_time_num ++;
+			flow_num++;
+			if(flow_num >= 2) flow_num -= 2;//每47ms，流动一次
+			if(flow_num) return;
+			Led_reset();
+	    count = 1;
+			start0--;
+			if(start0 < 1) start0 += 7;
+			period_count = start0;
+			while(count <= TOTAL2)
+			{
+				 //if(count == MAX_NUM) break;
+				if(period_count>=5){
+						color_id?RGB_LED_Write_24Bits(0x20,0X7F,0X00):RGB_LED_Write_24Bits(0x60,0X00,0X43);
+					}
+					else RGB_LED_Write_24Bits(0x00,0X00,0X00);
+					
+				
+					count++;
+	
+					if(count == MAX_NUM){//第二排 上
+							period_count = 6 - period_count;
+							if(period_count < 1) period_count += 7;
+					}
+					else if(count == 2*MAX_NUM + 1){//第三排 下
+							period_count = 6 - period_count;
+							if(period_count > 7) period_count -= 7;
+					}		
+					else if(count == 3*MAX_NUM + 1){//第四排 上
+							period_count = 1 - period_count;
+							if(period_count < 1) period_count += 7;
+					}
+					else if(count == 4*MAX_NUM + 1){//第五排 下
+							period_count = 1 -  period_count;
+							if(period_count > 7) period_count -= 7;
+					}
+					else if(count == 5*MAX_NUM + 1){//第六排 上
+							period_count = 6 - period_count;
+							if(period_count > 7) period_count -= 7;
+					}
+					else if(count == 6*MAX_NUM + 1){//第七排 下
+							period_count = 1 - period_count;
+							if(period_count > 7) period_count -= 7;
+					}
+					else period_count ++;
+					if(period_count > 7) period_count -= 7;
+	 }
 }
 
-void MOVE_Process(void)
+void Reset(void){
+	
+	success_count = 0;
+	
+  HAL_GPIO_WritePin(Lamp1_1_GPIO_Port,Lamp1_1_Pin,GPIO_PIN_RESET);delay_us(2900);
+	HAL_GPIO_WritePin(Lamp1_2_GPIO_Port,Lamp1_2_Pin,GPIO_PIN_RESET);delay_us(2900);
+	HAL_GPIO_WritePin(Lamp1_3_GPIO_Port,Lamp1_3_Pin,GPIO_PIN_RESET);delay_us(2900);
+
+  HAL_GPIO_WritePin(Lamp2_1_GPIO_Port,Lamp2_1_Pin,GPIO_PIN_RESET);delay_us(2900);
+	HAL_GPIO_WritePin(Lamp2_2_GPIO_Port,Lamp2_2_Pin,GPIO_PIN_RESET);delay_us(2900);
+	HAL_GPIO_WritePin(Lamp2_3_GPIO_Port,Lamp2_3_Pin,GPIO_PIN_RESET);delay_us(2900);
+
+  HAL_GPIO_WritePin(Lamp3_1_GPIO_Port,Lamp3_1_Pin,GPIO_PIN_RESET);delay_us(2900);
+	HAL_GPIO_WritePin(Lamp3_2_GPIO_Port,Lamp3_2_Pin,GPIO_PIN_RESET);delay_us(2900);
+	HAL_GPIO_WritePin(Lamp3_3_GPIO_Port,Lamp3_3_Pin,GPIO_PIN_RESET);delay_us(2900);
+
+  HAL_GPIO_WritePin(Lamp4_1_GPIO_Port,Lamp4_1_Pin,GPIO_PIN_RESET);delay_us(2900);
+	HAL_GPIO_WritePin(Lamp4_2_GPIO_Port,Lamp4_2_Pin,GPIO_PIN_RESET);delay_us(2900);
+	HAL_GPIO_WritePin(Lamp4_3_GPIO_Port,Lamp4_3_Pin,GPIO_PIN_RESET);delay_us(2900);
+
+  HAL_GPIO_WritePin(Lamp5_1_GPIO_Port,Lamp5_1_Pin,GPIO_PIN_RESET);delay_us(2900);
+	HAL_GPIO_WritePin(Lamp5_2_GPIO_Port,Lamp5_2_Pin,GPIO_PIN_RESET);delay_us(2900);
+	HAL_GPIO_WritePin(Lamp5_3_GPIO_Port,Lamp5_3_Pin,GPIO_PIN_RESET);delay_us(2900);
+  Get_next_lamp();
+}
+
+
+void Get_next_lamp(void)
 {
-	MOVE_GetMoveData();
-	MOVE_PidRun();
-	MOVE_CanTransmit();
-}
-/*************************main function***************************/
+	start0 = Start;/*初始为1*/
+	flow_num = 0;
+	run_time_num = 0;
+  if(success_count == 5) return;
+	target = number[Random_Num];//将要点亮的灯的序号U8 number[] = {2,3,4,5};初始化时为target赋值为1
+	Random_Num++;
+	if(Random_Num == 3) return;
+			 
+	switch(target){
+		 case 1:
+		 {
+			 LED_PORT_1 = Lamp1_1_GPIO_Port;
+			 LED_PORT_2 = Lamp1_2_GPIO_Port;
+			 LED_PORT_3 = Lamp1_3_GPIO_Port;
+			 LED_Pin_1  = Lamp1_1_Pin;
+			 LED_Pin_2  = Lamp1_2_Pin;
+			 LED_Pin_3  = Lamp1_3_Pin;
+		 };break;
+		 case 2:
+		 {
+			 LED_PORT_1 = Lamp2_1_GPIO_Port;
+			 LED_PORT_2 = Lamp2_2_GPIO_Port;
+			 LED_PORT_3 = Lamp2_3_GPIO_Port;
+			 LED_Pin_1  = Lamp2_1_Pin;
+			 LED_Pin_2  = Lamp2_2_Pin;
+			 LED_Pin_3  = Lamp2_3_Pin;
+		 };break;
+		 case 3:
+		 {
+			 LED_PORT_1 = Lamp3_1_GPIO_Port;
+			 LED_PORT_2 = Lamp3_2_GPIO_Port;
+			 LED_PORT_3 = Lamp3_3_GPIO_Port;
+			 LED_Pin_1  = Lamp3_1_Pin;
+			 LED_Pin_2  = Lamp3_2_Pin;
+			 LED_Pin_3  = Lamp3_3_Pin;
+		 };break;
+		 case 4:
+		 {
+			 LED_PORT_1 = Lamp4_1_GPIO_Port;
+			 LED_PORT_2 = Lamp4_2_GPIO_Port;
+			 LED_PORT_3 = Lamp4_3_GPIO_Port;
+			 LED_Pin_1  = Lamp4_1_Pin;
+			 LED_Pin_2  = Lamp4_2_Pin;
+			 LED_Pin_3  = Lamp4_3_Pin;
+		 };break;
+		 case 5:
+		 {
+			 LED_PORT_1 = Lamp5_1_GPIO_Port;
+			 LED_PORT_2 = Lamp5_2_GPIO_Port;
+			 LED_PORT_3 = Lamp5_3_GPIO_Port;
+			 LED_Pin_1  = Lamp5_1_Pin;
+			 LED_Pin_2  = Lamp5_2_Pin;
+			 LED_Pin_3  = Lamp5_3_Pin;
+		 };break;
+	 }
 
-int16_t Tar_speed;
-_Bool color_id;
+}
+
+void Finish_target(void)//激活成功
+{
+	int count = 1;
+	while(count <= TOTAL2) {
+	  color_id?RGB_LED_Write_24Bits(0x20,0X7F,0X00):RGB_LED_Write_24Bits(0x60,0X00,0X43);
+	  count++;
+	}
+	
+	count = 1;
+	LED_PORT_1 = LED_PORT_2;
+	LED_Pin_1 = LED_Pin_2; 
+	while(count <= TOTAL1)
+	{
+	color_id?RGB_LED_Write_24Bits(0x20,0X7F,0X00):RGB_LED_Write_24Bits(0x60,0X00,0X43);
+	count++;
+	}
+	
+	count = 1;
+	LED_PORT_1 = LED_PORT_3;
+	LED_Pin_1 = LED_Pin_3; 
+	while(count <= TOTAL3)
+	{
+	color_id?RGB_LED_Write_24Bits(0x20,0X7F,0X00):RGB_LED_Write_24Bits(0x60,0X00,0X43);
+	count++;
+	}
+	
+	success_count++;
+	if(success_count != 5) Get_next_lamp();
+}
+
+
+
 void windmill_Process(void)
 {
 	 switch(queue_get())
 	 {
+		 case led_reset:
+			 Led_reset(); break;
 		 case run_led:
-			 Run_led(); break;
+			 Run_led(); break;   
+		 
      case motor_stop:
 			 Tar_speed = SPEED3; break;
 		 case run_motor:
 			 Tar_speed = SPEED1; break;
+		 
 		 case orange_color:
 			 color_id = 1; break;
 		 case cyan_color:
 			 color_id = 0; break;
-		 case led_reset:
-			 Reset(); break;
+		 
+		 case success_hit:
+			  Finish_target();break;
+		 case fail_hit:
+			  Reset();break;
+
 			 
    }
 	 MOVE_Process();
 }
+

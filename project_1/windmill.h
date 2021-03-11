@@ -1,7 +1,9 @@
-#include "motor.h"
-#include "dr16.h"
-#include "pid.h"
+#ifndef _WINDMILL_H
+#define _WINDMILL_H
 
+#include "headfile.h"
+#include "M6020_motor.h"
+#include "ws2812.h"
 
 //指令
 #define led_reset 1
@@ -19,18 +21,16 @@
 #define movement_normal 9
 #define movement_other 10
 
-typedef struct _move_t
-{
-    M3508_t M3508;
-    uint8_t CanData[8];
-//    MoveData_t MoveData;
-}move_t;
+#define MAX_NUM 62   //中间每排灯珠数
+#define TOTAL1 100 //上边灯数
+#define TOTAL2 7*MAX_NUM //中间边灯数
+#define TOTAL3 100  //下边灯数
 
-void MOVE_pidinit(void);
-void MOVE_Process(void);
-void RGB_LED_Write_24Bits(uint8_t green,uint8_t red,uint8_t blue);//GRB......
+
+
+void windmill_Process(void);
 void Run_led(void);
 uint8_t queue_get(void);
-extern int16_t Tar_speed;
-extern _Bool color_id;
-	
+void Get_next_lamp(void);	
+
+#endif

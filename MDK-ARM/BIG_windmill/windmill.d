@@ -1,11 +1,8 @@
 big_windmill\windmill.o: ..\project_1\windmill.c
 big_windmill\windmill.o: ..\project_1\windmill.h
-big_windmill\windmill.o: ..\project_1\motor.h
-big_windmill\windmill.o: D:\software\keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
-big_windmill\windmill.o: ..\project_1\pid.h
-big_windmill\windmill.o: D:\software\keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
-big_windmill\windmill.o: ..\project_1\dr16.h
-big_windmill\windmill.o: ../Core/Inc/usart.h
+big_windmill\windmill.o: ..\project_1\headfile.h
+big_windmill\windmill.o: D:\software\keil_v5\ARM\ARMCC\Bin\..\include\math.h
+big_windmill\windmill.o: ../Core/Inc/can.h
 big_windmill\windmill.o: ../Core/Inc/main.h
 big_windmill\windmill.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h
 big_windmill\windmill.o: ../Core/Inc/stm32f4xx_hal_conf.h
@@ -14,6 +11,7 @@ big_windmill\windmill.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h
 big_windmill\windmill.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h
 big_windmill\windmill.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f407xx.h
 big_windmill\windmill.o: ../Drivers/CMSIS/Include/core_cm4.h
+big_windmill\windmill.o: D:\software\keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 big_windmill\windmill.o: ../Drivers/CMSIS/Include/cmsis_version.h
 big_windmill\windmill.o: ../Drivers/CMSIS/Include/cmsis_compiler.h
 big_windmill\windmill.o: ../Drivers/CMSIS/Include/cmsis_armcc.h
@@ -39,4 +37,11 @@ big_windmill\windmill.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h
 big_windmill\windmill.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h
 big_windmill\windmill.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h
 big_windmill\windmill.o: ../Core/Inc/gpio.h
-big_windmill\windmill.o: ../Core/Inc/can.h
+big_windmill\windmill.o: ..\project_1\dr16.h
+big_windmill\windmill.o: ../Core/Inc/usart.h
+big_windmill\windmill.o: ..\project_1\motor.h
+big_windmill\windmill.o: ..\project_1\pid.h
+big_windmill\windmill.o: D:\software\keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+big_windmill\windmill.o: D:\software\keil_v5\ARM\ARMCC\Bin\..\include\string.h
+big_windmill\windmill.o: ..\project_1\M6020_motor.h
+big_windmill\windmill.o: ..\project_1\ws2812.h

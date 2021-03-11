@@ -58,8 +58,38 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
+#define Lamp2_1_Pin GPIO_PIN_2
+#define Lamp2_1_GPIO_Port GPIOA
+#define Lamp2_2_Pin GPIO_PIN_3
+#define Lamp2_2_GPIO_Port GPIOA
+#define Lamp2_3_Pin GPIO_PIN_4
+#define Lamp2_3_GPIO_Port GPIOA
+#define Lamp1_1_Pin GPIO_PIN_5
+#define Lamp1_1_GPIO_Port GPIOA
+#define Lamp1_2_Pin GPIO_PIN_6
+#define Lamp1_2_GPIO_Port GPIOA
+#define Lamp1_3_Pin GPIO_PIN_7
+#define Lamp1_3_GPIO_Port GPIOA
+#define Lamp3_1_Pin GPIO_PIN_13
+#define Lamp3_1_GPIO_Port GPIOD
+#define Lamp3_2_Pin GPIO_PIN_14
+#define Lamp3_2_GPIO_Port GPIOD
+#define Lamp3_3_Pin GPIO_PIN_15
+#define Lamp3_3_GPIO_Port GPIOD
+#define Lamp4_1_Pin GPIO_PIN_8
+#define Lamp4_1_GPIO_Port GPIOA
+#define Lamp4_2_Pin GPIO_PIN_9
+#define Lamp4_2_GPIO_Port GPIOA
+#define Lamp4_3_Pin GPIO_PIN_10
+#define Lamp4_3_GPIO_Port GPIOA
 #define LED1_Pin GPIO_PIN_6
 #define LED1_GPIO_Port GPIOB
+#define Lamp5_1_Pin GPIO_PIN_8
+#define Lamp5_1_GPIO_Port GPIOB
+#define Lamp5_2_Pin GPIO_PIN_9
+#define Lamp5_2_GPIO_Port GPIOB
+#define Lamp5_3_Pin GPIO_PIN_0
+#define Lamp5_3_GPIO_Port GPIOE
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */

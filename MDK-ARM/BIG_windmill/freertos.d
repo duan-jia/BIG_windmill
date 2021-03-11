@@ -48,3 +48,14 @@ big_windmill\freertos.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/semp
 big_windmill\freertos.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h
 big_windmill\freertos.o: ../Core/Inc/usart.h
 big_windmill\freertos.o: ..\project_1\dr16.h
+big_windmill\freertos.o: ..\project_1\windmill.h
+big_windmill\freertos.o: ..\project_1\headfile.h
+big_windmill\freertos.o: D:\software\keil_v5\ARM\ARMCC\Bin\..\include\math.h
+big_windmill\freertos.o: ../Core/Inc/can.h
+big_windmill\freertos.o: ../Core/Inc/gpio.h
+big_windmill\freertos.o: ..\project_1\motor.h
+big_windmill\freertos.o: ..\project_1\pid.h
+big_windmill\freertos.o: D:\software\keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+big_windmill\freertos.o: D:\software\keil_v5\ARM\ARMCC\Bin\..\include\string.h
+big_windmill\freertos.o: ..\project_1\M6020_motor.h
+big_windmill\freertos.o: ..\project_1\ws2812.h

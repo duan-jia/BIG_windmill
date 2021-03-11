@@ -28,6 +28,7 @@
 /* USER CODE BEGIN Includes */
 #include "usart.h"
 #include "dr16.h"
+#include "windmill.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -161,8 +162,11 @@ void TaskRUN(void const * argument)
 {
   /* USER CODE BEGIN TaskRUN */
   /* Infinite loop */
+  MOVE_pidinit();
   for(;;)
   {
+		MOVE_Process();
+		windmill_Process();
     osDelay(1);
   }
   /* USER CODE END TaskRUN */

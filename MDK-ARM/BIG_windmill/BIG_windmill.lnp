@@ -26,6 +26,12 @@
 "big_windmill\stm32f4xx_hal_tim_ex.o"
 "big_windmill\stm32f4xx_hal_uart.o"
 "big_windmill\system_stm32f4xx.o"
+"big_windmill\dr16.o"
+"big_windmill\pid.o"
+"big_windmill\motor.o"
+"big_windmill\windmill.o"
+"big_windmill\ws2812.o"
+"big_windmill\m6020_motor.o"
 "big_windmill\croutine.o"
 "big_windmill\event_groups.o"
 "big_windmill\list.o"
@@ -36,10 +42,6 @@
 "big_windmill\cmsis_os.o"
 "big_windmill\heap_4.o"
 "big_windmill\port.o"
-"big_windmill\dr16.o"
-"big_windmill\pid.o"
-"big_windmill\motor.o"
-"big_windmill\windmill.o"
 --library_type=microlib --strict --scatter "BIG_windmill\BIG_windmill.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers
