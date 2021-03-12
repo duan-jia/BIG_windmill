@@ -50,8 +50,8 @@
 /* USER CODE BEGIN Variables */
 osPoolId RDmemHandle;
 /* USER CODE END Variables */
-osThreadId MSGHandle;
 osThreadId RUNHandle;
+osThreadId MSGHandle;
 osMessageQId RDHandle;
 
 /* Private function prototypes -----------------------------------------------*/
@@ -59,8 +59,8 @@ osMessageQId RDHandle;
 
 /* USER CODE END FunctionPrototypes */
 
-void TaskMSG(void const * argument);
 void TaskRUN(void const * argument);
+void TaskMSG(void const * argument);
 
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
@@ -113,18 +113,39 @@ void MX_FREERTOS_Init(void) {
   /* USER CODE END RTOS_QUEUES */
 
   /* Create the thread(s) */
-  /* definition and creation of MSG */
-  osThreadDef(MSG, TaskMSG, osPriorityRealtime, 0, 128);
-  MSGHandle = osThreadCreate(osThread(MSG), NULL);
-
   /* definition and creation of RUN */
   osThreadDef(RUN, TaskRUN, osPriorityHigh, 0, 128);
   RUNHandle = osThreadCreate(osThread(RUN), NULL);
+
+  /* definition and creation of MSG */
+  osThreadDef(MSG, TaskMSG, osPriorityRealtime, 0, 128);
+  MSGHandle = osThreadCreate(osThread(MSG), NULL);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
   /* USER CODE END RTOS_THREADS */
 
+}
+
+/* USER CODE BEGIN Header_TaskRUN */
+/**
+* @brief Function implementing the RUN thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_TaskRUN */
+void TaskRUN(void const * argument)
+{
+  /* USER CODE BEGIN TaskRUN */
+  /* Infinite loop */
+  MOVE_pidinit();
+  for(;;)
+  {
+		MOVE_Process();
+		windmill_Process();
+    osDelay(1);
+  }
+  /* USER CODE END TaskRUN */
 }
 
 /* USER CODE BEGIN Header_TaskMSG */
@@ -149,27 +170,6 @@ void TaskMSG(void const * argument)
     osDelay(10);
   }
   /* USER CODE END TaskMSG */
-}
-
-/* USER CODE BEGIN Header_TaskRUN */
-/**
-* @brief Function implementing the RUN thread.
-* @param argument: Not used
-* @retval None
-*/
-/* USER CODE END Header_TaskRUN */
-void TaskRUN(void const * argument)
-{
-  /* USER CODE BEGIN TaskRUN */
-  /* Infinite loop */
-  MOVE_pidinit();
-  for(;;)
-  {
-		MOVE_Process();
-		windmill_Process();
-    osDelay(1);
-  }
-  /* USER CODE END TaskRUN */
 }
 
 /* Private application code --------------------------------------------------*/
