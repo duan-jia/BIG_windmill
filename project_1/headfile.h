@@ -10,7 +10,7 @@
 #include "dr16.h"
 #include "motor.h"
 #include "pid.h"
-
+#include "tim.h"
 //****ST_lib****
 #include "string.h"
 

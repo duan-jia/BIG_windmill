@@ -21,12 +21,14 @@
 #include "main.h"
 #include "cmsis_os.h"
 #include "can.h"
+#include "tim.h"
 #include "usart.h"
 #include "gpio.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "windmill.h"
+#include "ws2812.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -91,6 +93,7 @@ int main(void)
   MX_GPIO_Init();
   MX_CAN1_Init();
   MX_USART2_UART_Init();
+  MX_TIM3_Init();
   /* USER CODE BEGIN 2 */
   CAN1_FilterInit();
   UART2_DMARxStart();
@@ -110,23 +113,7 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-			RGB_LED_Write_24Bits(0xC0,0xC0,0xC0);
-//    int order = 1;
-//		if(order == 1 )
-//			{
-//		    while(count < total)
-//		    {
-//			  RGB_LED_Write_24Bits(0X00,0X00,0X00);
-//			  count++;
-//		    }
-////	    }
-//		HAL_Delay(1000);
-//		while(count > 0)
-//		{
-//			RGB_LED_Write_24Bits(0x20,0X7F,0X00);
-//		  count--;
-//		}
-//		
+    RGB_LED_Write0();	
 
   }
   /* USER CODE END 3 */

@@ -32,5 +32,6 @@ void windmill_Process(void);
 void Run_led(void);
 uint8_t queue_get(void);
 void Get_next_lamp(void);	
+void fortest(void);
 
 #endif

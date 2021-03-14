@@ -116,25 +116,25 @@ void Reset(void){
 	
 	success_count = 0;
 	
-  HAL_GPIO_WritePin(Lamp1_1_GPIO_Port,Lamp1_1_Pin,GPIO_PIN_RESET);delay_us(2900);
-	HAL_GPIO_WritePin(Lamp1_2_GPIO_Port,Lamp1_2_Pin,GPIO_PIN_RESET);delay_us(2900);
-	HAL_GPIO_WritePin(Lamp1_3_GPIO_Port,Lamp1_3_Pin,GPIO_PIN_RESET);delay_us(2900);
+  HAL_GPIO_WritePin(Lamp1_1_GPIO_Port,Lamp1_1_Pin,GPIO_PIN_RESET);user_delay_us(860);
+	HAL_GPIO_WritePin(Lamp1_2_GPIO_Port,Lamp1_2_Pin,GPIO_PIN_RESET);user_delay_us(860);
+	HAL_GPIO_WritePin(Lamp1_3_GPIO_Port,Lamp1_3_Pin,GPIO_PIN_RESET);user_delay_us(860);
 
-  HAL_GPIO_WritePin(Lamp2_1_GPIO_Port,Lamp2_1_Pin,GPIO_PIN_RESET);delay_us(2900);
-	HAL_GPIO_WritePin(Lamp2_2_GPIO_Port,Lamp2_2_Pin,GPIO_PIN_RESET);delay_us(2900);
-	HAL_GPIO_WritePin(Lamp2_3_GPIO_Port,Lamp2_3_Pin,GPIO_PIN_RESET);delay_us(2900);
+  HAL_GPIO_WritePin(Lamp2_1_GPIO_Port,Lamp2_1_Pin,GPIO_PIN_RESET);user_delay_us(860);
+	HAL_GPIO_WritePin(Lamp2_2_GPIO_Port,Lamp2_2_Pin,GPIO_PIN_RESET);user_delay_us(860);
+	HAL_GPIO_WritePin(Lamp2_3_GPIO_Port,Lamp2_3_Pin,GPIO_PIN_RESET);user_delay_us(860);
 
-  HAL_GPIO_WritePin(Lamp3_1_GPIO_Port,Lamp3_1_Pin,GPIO_PIN_RESET);delay_us(2900);
-	HAL_GPIO_WritePin(Lamp3_2_GPIO_Port,Lamp3_2_Pin,GPIO_PIN_RESET);delay_us(2900);
-	HAL_GPIO_WritePin(Lamp3_3_GPIO_Port,Lamp3_3_Pin,GPIO_PIN_RESET);delay_us(2900);
+  HAL_GPIO_WritePin(Lamp3_1_GPIO_Port,Lamp3_1_Pin,GPIO_PIN_RESET);user_delay_us(860);
+	HAL_GPIO_WritePin(Lamp3_2_GPIO_Port,Lamp3_2_Pin,GPIO_PIN_RESET);user_delay_us(860);
+	HAL_GPIO_WritePin(Lamp3_3_GPIO_Port,Lamp3_3_Pin,GPIO_PIN_RESET);user_delay_us(860);
 
-  HAL_GPIO_WritePin(Lamp4_1_GPIO_Port,Lamp4_1_Pin,GPIO_PIN_RESET);delay_us(2900);
-	HAL_GPIO_WritePin(Lamp4_2_GPIO_Port,Lamp4_2_Pin,GPIO_PIN_RESET);delay_us(2900);
-	HAL_GPIO_WritePin(Lamp4_3_GPIO_Port,Lamp4_3_Pin,GPIO_PIN_RESET);delay_us(2900);
+  HAL_GPIO_WritePin(Lamp4_1_GPIO_Port,Lamp4_1_Pin,GPIO_PIN_RESET);user_delay_us(860);
+	HAL_GPIO_WritePin(Lamp4_2_GPIO_Port,Lamp4_2_Pin,GPIO_PIN_RESET);user_delay_us(860);
+	HAL_GPIO_WritePin(Lamp4_3_GPIO_Port,Lamp4_3_Pin,GPIO_PIN_RESET);user_delay_us(860);
 
-  HAL_GPIO_WritePin(Lamp5_1_GPIO_Port,Lamp5_1_Pin,GPIO_PIN_RESET);delay_us(2900);
-	HAL_GPIO_WritePin(Lamp5_2_GPIO_Port,Lamp5_2_Pin,GPIO_PIN_RESET);delay_us(2900);
-	HAL_GPIO_WritePin(Lamp5_3_GPIO_Port,Lamp5_3_Pin,GPIO_PIN_RESET);delay_us(2900);
+  HAL_GPIO_WritePin(Lamp5_1_GPIO_Port,Lamp5_1_Pin,GPIO_PIN_RESET);user_delay_us(860);
+	HAL_GPIO_WritePin(Lamp5_2_GPIO_Port,Lamp5_2_Pin,GPIO_PIN_RESET);user_delay_us(860);
+	HAL_GPIO_WritePin(Lamp5_3_GPIO_Port,Lamp5_3_Pin,GPIO_PIN_RESET);user_delay_us(860);
   Get_next_lamp();
 }
 
@@ -260,3 +260,11 @@ void windmill_Process(void)
 	 MOVE_Process();
 }
 
+void fortest(void)
+{
+	queue_insert(1);
+	queue_insert(2);
+	queue_insert(7);
+	queue_insert(8);
+	
+}

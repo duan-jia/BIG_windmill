@@ -139,9 +139,12 @@ void TaskRUN(void const * argument)
   /* USER CODE BEGIN TaskRUN */
   /* Infinite loop */
   MOVE_pidinit();
+	param_init();
+  fortest();
   for(;;)
   {
-		MOVE_Process();
+//		MOVE_Process();
+
 		windmill_Process();
     osDelay(1);
   }

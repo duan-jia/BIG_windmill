@@ -56,6 +56,7 @@ big_windmill\freertos.o: ../Core/Inc/gpio.h
 big_windmill\freertos.o: ..\project_1\motor.h
 big_windmill\freertos.o: ..\project_1\pid.h
 big_windmill\freertos.o: D:\software\keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+big_windmill\freertos.o: ../Core/Inc/tim.h
 big_windmill\freertos.o: D:\software\keil_v5\ARM\ARMCC\Bin\..\include\string.h
 big_windmill\freertos.o: ..\project_1\M6020_motor.h
 big_windmill\freertos.o: ..\project_1\ws2812.h

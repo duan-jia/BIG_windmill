@@ -4,6 +4,7 @@
 #define     RGB_LED_HIGH    (HAL_GPIO_WritePin(LED_PORT_1, LED_Pin_1, GPIO_PIN_SET))
 #define     RGB_LED_LOW     (HAL_GPIO_WritePin(LED_PORT_1, LED_Pin_1, GPIO_PIN_RESET))
 
+
 GPIO_TypeDef* LED_PORT_1;
 GPIO_TypeDef* LED_PORT_2;
 GPIO_TypeDef* LED_PORT_3;
@@ -11,23 +12,23 @@ uint16_t LED_Pin_1,LED_Pin_2,LED_Pin_3;
 
 void delay_us(uint16_t n)
 {
-	  while(n) n--;
+  while(n) n--;
 }
 
 void RGB_LED_Write0(void)
 {
-	 RGB_LED_HIGH;
-	 delay_us(6);
-   RGB_LED_LOW;
-	 delay_us(21);
+  RGB_LED_HIGH;
+  user_delay_us(5);
+  RGB_LED_LOW;
+  user_delay_us(15);
 }
 
 void RGB_LED_Write1(void)
 {
 	 RGB_LED_HIGH;
-	 delay_us(25);
+   user_delay_us(10);
 	 RGB_LED_LOW;
-	 delay_us(3);
+   user_delay_us(8);
 }
 
 
@@ -58,5 +59,5 @@ void RGB_LED_Write_24Bits(uint8_t green,uint8_t red,uint8_t blue)//GRB......
 void Led_reset(void)
 {
  RGB_LED_LOW;
- delay_us(2900);//延时86us,2800也可
+ user_delay_us(860);//延时86us,2800也可
 }

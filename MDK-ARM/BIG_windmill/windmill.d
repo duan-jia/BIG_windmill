@@ -42,6 +42,7 @@ big_windmill\windmill.o: ../Core/Inc/usart.h
 big_windmill\windmill.o: ..\project_1\motor.h
 big_windmill\windmill.o: ..\project_1\pid.h
 big_windmill\windmill.o: D:\software\keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+big_windmill\windmill.o: ../Core/Inc/tim.h
 big_windmill\windmill.o: D:\software\keil_v5\ARM\ARMCC\Bin\..\include\string.h
 big_windmill\windmill.o: ..\project_1\M6020_motor.h
 big_windmill\windmill.o: ..\project_1\ws2812.h

@@ -4,6 +4,7 @@
 "big_windmill\gpio.o"
 "big_windmill\freertos.o"
 "big_windmill\can.o"
+"big_windmill\tim.o"
 "big_windmill\usart.o"
 "big_windmill\stm32f4xx_it.o"
 "big_windmill\stm32f4xx_hal_msp.o"
