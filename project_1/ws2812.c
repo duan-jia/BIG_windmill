@@ -18,17 +18,17 @@ void delay_us(uint16_t n)
 void RGB_LED_Write0(void)
 {
   RGB_LED_HIGH;
-  user_delay_us(5);
+  delay_us(6);//4
   RGB_LED_LOW;
-  user_delay_us(15);
+  delay_us(21);//9
 }
 
 void RGB_LED_Write1(void)
 {
-	 RGB_LED_HIGH;
-   user_delay_us(10);
-	 RGB_LED_LOW;
-   user_delay_us(8);
+	  RGB_LED_HIGH;
+	  delay_us(25);
+    RGB_LED_LOW;
+	  delay_us(3);
 }
 
 
@@ -59,5 +59,5 @@ void RGB_LED_Write_24Bits(uint8_t green,uint8_t red,uint8_t blue)//GRB......
 void Led_reset(void)
 {
  RGB_LED_LOW;
- user_delay_us(860);//延时86us,2800也可
+ user_delay_us(3000);//延时86us,2800也可
 }

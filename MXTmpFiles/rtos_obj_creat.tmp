@@ -1,0 +1,35 @@
+#n
+#t/* USER CODE BEGIN RTOS_MUTEX */
+#t/* add mutexes, ... */
+#t/* USER CODE END RTOS_MUTEX */
+#n
+#t/* USER CODE BEGIN RTOS_SEMAPHORES */
+#t/* add semaphores, ... */
+#t/* USER CODE END RTOS_SEMAPHORES */
+#n
+#t/* USER CODE BEGIN RTOS_TIMERS */
+#t/* start timers, add new ones, ... */
+#t/* USER CODE END RTOS_TIMERS */
+#n#t/* Create the queue(s) */
+#t/* definition and creation of RD */
+#tosMessageQDef(RD, 16, uint32_t);
+#tRDHandle = osMessageCreate(osMessageQ(RD), NULL);
+#n
+#n
+#t/* USER CODE BEGIN RTOS_QUEUES */
+#t/* add queues, ... */
+#t/* USER CODE END RTOS_QUEUES */
+#n#t/* Create the thread(s) */
+#t/* definition and creation of RUN */
+#tosThreadDef(RUN, TaskRUN, osPriorityHigh, 0, 128);
+#tRUNHandle = osThreadCreate(osThread(RUN), NULL);
+#n
+#t/* definition and creation of MSG */
+#tosThreadDef(MSG, TaskMSG, osPriorityRealtime, 0, 128);
+#tMSGHandle = osThreadCreate(osThread(MSG), NULL);
+#n
+#n
+#t/* USER CODE BEGIN RTOS_THREADS */
+#t/* add threads, ... */
+#t/* USER CODE END RTOS_THREADS */
+#n

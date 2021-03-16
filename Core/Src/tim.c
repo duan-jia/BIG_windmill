@@ -33,7 +33,7 @@ void MX_TIM3_Init(void)
   TIM_MasterConfigTypeDef sMasterConfig = {0};
 
   htim3.Instance = TIM3;
-  htim3.Init.Prescaler = 8.4-1;
+  htim3.Init.Prescaler = 8-1;
   htim3.Init.CounterMode = TIM_COUNTERMODE_UP;
   htim3.Init.Period = 65535;
   htim3.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
@@ -94,7 +94,6 @@ void user_delay_us(uint16_t nus)
 	uint16_t differ = 0xffff - nus - 5;
 	__HAL_TIM_SetCounter(&htim3, differ);
 	HAL_TIM_Base_Start(&htim3);
-	
 	while( differ < 0xffff - 5)
 	{
 		differ = __HAL_TIM_GetCounter(&htim3);

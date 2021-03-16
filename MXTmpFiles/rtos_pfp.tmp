@@ -1,0 +1,2 @@
+void TaskRUN(void const * argument);
+void TaskMSG(void const * argument);#n

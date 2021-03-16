@@ -12,21 +12,20 @@ uint16_t Start;
 uint16_t run_time_num, flow_num ;//flow_num控制流动时间间隔,run_time_num用于判定是否超时
 uint8_t target, success_count, Random_Num;
 uint8_t queue[20], st, ed, queue_num;
-uint8_t number[] = {2,3,4,5};
-_Bool color_id;
+//uint8_t number[] = {2,3,4,5};
+uint8_t number[] = {1};
+_Bool color_id ;
 int start0 ,count , period_count ;
 
 uint8_t queue_get(void)
 {
 		if(!queue_num) return 1;
-		if(queue_num == 1)	return queue[st];
-		if(queue_num > 1) 
+		if(queue_num != 0)
 		{
-			st ++;
-			queue_num --;
+		  queue_num--;
 		  if(st > 19) st -= 20;
-	    return queue[st];
-	  }
+		  return queue[st++];
+		}
 		return  0;
 }
 
@@ -112,29 +111,60 @@ void Run_led()
 	 }
 }
 
+
+void WS2812_reset(void)
+{
+	success_count = 0;
+	int count = 1;
+	while(count <= TOTAL1) {
+	  RGB_LED_Write_24Bits(0x00,0X00,0X00);
+	  count++;
+	}
+	
+	count = 1;
+	LED_PORT_1 = LED_PORT_2;
+	LED_Pin_1 = LED_Pin_2; 
+	while(count <= TOTAL2)
+	{
+	  RGB_LED_Write_24Bits(0x00,0X00,0X00);
+	  count++;
+	}
+	
+	count = 1;
+	LED_PORT_1 = LED_PORT_3;
+	LED_Pin_1 = LED_Pin_3; 
+	while(count <= TOTAL3)
+	{
+    RGB_LED_Write_24Bits(0x00,0X00,0X00);
+	  count++;
+	}
+  Get_next_lamp();
+
+}
+
 void Reset(void){
 	
 	success_count = 0;
 	
-  HAL_GPIO_WritePin(Lamp1_1_GPIO_Port,Lamp1_1_Pin,GPIO_PIN_RESET);user_delay_us(860);
-	HAL_GPIO_WritePin(Lamp1_2_GPIO_Port,Lamp1_2_Pin,GPIO_PIN_RESET);user_delay_us(860);
-	HAL_GPIO_WritePin(Lamp1_3_GPIO_Port,Lamp1_3_Pin,GPIO_PIN_RESET);user_delay_us(860);
+  HAL_GPIO_WritePin(Lamp1_1_GPIO_Port,Lamp1_1_Pin,GPIO_PIN_RESET);HAL_Delay(10);
+	HAL_GPIO_WritePin(Lamp1_2_GPIO_Port,Lamp1_2_Pin,GPIO_PIN_RESET);HAL_Delay(10);
+	HAL_GPIO_WritePin(Lamp1_3_GPIO_Port,Lamp1_3_Pin,GPIO_PIN_RESET);HAL_Delay(10);
 
-  HAL_GPIO_WritePin(Lamp2_1_GPIO_Port,Lamp2_1_Pin,GPIO_PIN_RESET);user_delay_us(860);
-	HAL_GPIO_WritePin(Lamp2_2_GPIO_Port,Lamp2_2_Pin,GPIO_PIN_RESET);user_delay_us(860);
-	HAL_GPIO_WritePin(Lamp2_3_GPIO_Port,Lamp2_3_Pin,GPIO_PIN_RESET);user_delay_us(860);
+  HAL_GPIO_WritePin(Lamp2_1_GPIO_Port,Lamp2_1_Pin,GPIO_PIN_RESET);user_delay_us(3000);
+	HAL_GPIO_WritePin(Lamp2_2_GPIO_Port,Lamp2_2_Pin,GPIO_PIN_RESET);user_delay_us(3000);
+	HAL_GPIO_WritePin(Lamp2_3_GPIO_Port,Lamp2_3_Pin,GPIO_PIN_RESET);user_delay_us(3000);
 
-  HAL_GPIO_WritePin(Lamp3_1_GPIO_Port,Lamp3_1_Pin,GPIO_PIN_RESET);user_delay_us(860);
-	HAL_GPIO_WritePin(Lamp3_2_GPIO_Port,Lamp3_2_Pin,GPIO_PIN_RESET);user_delay_us(860);
-	HAL_GPIO_WritePin(Lamp3_3_GPIO_Port,Lamp3_3_Pin,GPIO_PIN_RESET);user_delay_us(860);
+  HAL_GPIO_WritePin(Lamp3_1_GPIO_Port,Lamp3_1_Pin,GPIO_PIN_RESET);user_delay_us(3000);
+	HAL_GPIO_WritePin(Lamp3_2_GPIO_Port,Lamp3_2_Pin,GPIO_PIN_RESET);user_delay_us(3000);
+	HAL_GPIO_WritePin(Lamp3_3_GPIO_Port,Lamp3_3_Pin,GPIO_PIN_RESET);user_delay_us(3000);
 
-  HAL_GPIO_WritePin(Lamp4_1_GPIO_Port,Lamp4_1_Pin,GPIO_PIN_RESET);user_delay_us(860);
-	HAL_GPIO_WritePin(Lamp4_2_GPIO_Port,Lamp4_2_Pin,GPIO_PIN_RESET);user_delay_us(860);
-	HAL_GPIO_WritePin(Lamp4_3_GPIO_Port,Lamp4_3_Pin,GPIO_PIN_RESET);user_delay_us(860);
+  HAL_GPIO_WritePin(Lamp4_1_GPIO_Port,Lamp4_1_Pin,GPIO_PIN_RESET);user_delay_us(3000);
+	HAL_GPIO_WritePin(Lamp4_2_GPIO_Port,Lamp4_2_Pin,GPIO_PIN_RESET);user_delay_us(3000);
+	HAL_GPIO_WritePin(Lamp4_3_GPIO_Port,Lamp4_3_Pin,GPIO_PIN_RESET);user_delay_us(3000);
 
-  HAL_GPIO_WritePin(Lamp5_1_GPIO_Port,Lamp5_1_Pin,GPIO_PIN_RESET);user_delay_us(860);
-	HAL_GPIO_WritePin(Lamp5_2_GPIO_Port,Lamp5_2_Pin,GPIO_PIN_RESET);user_delay_us(860);
-	HAL_GPIO_WritePin(Lamp5_3_GPIO_Port,Lamp5_3_Pin,GPIO_PIN_RESET);user_delay_us(860);
+  HAL_GPIO_WritePin(Lamp5_1_GPIO_Port,Lamp5_1_Pin,GPIO_PIN_RESET);user_delay_us(3000);
+	HAL_GPIO_WritePin(Lamp5_2_GPIO_Port,Lamp5_2_Pin,GPIO_PIN_RESET);user_delay_us(3000);
+	HAL_GPIO_WritePin(Lamp5_3_GPIO_Port,Lamp5_3_Pin,GPIO_PIN_RESET);user_delay_us(3000);
   Get_next_lamp();
 }
 
@@ -145,8 +175,8 @@ void Get_next_lamp(void)
 	flow_num = 0;
 	run_time_num = 0;
   if(success_count == 5) return;
-	target = number[Random_Num];//将要点亮的灯的序号U8 number[] = {2,3,4,5};初始化时为target赋值为1
-	Random_Num++;
+//	target = number[Random_Num];//将要点亮的灯的序号U8 number[] = {2,3,4,5};初始化时为target赋值为1
+//	Random_Num++;
 	if(Random_Num == 3) return;
 			 
 	switch(target){
@@ -202,7 +232,7 @@ void Get_next_lamp(void)
 void Finish_target(void)//激活成功
 {
 	int count = 1;
-	while(count <= TOTAL2) {
+	while(count <= TOTAL1) {
 	  color_id?RGB_LED_Write_24Bits(0x20,0X7F,0X00):RGB_LED_Write_24Bits(0x60,0X00,0X43);
 	  count++;
 	}
@@ -210,7 +240,7 @@ void Finish_target(void)//激活成功
 	count = 1;
 	LED_PORT_1 = LED_PORT_2;
 	LED_Pin_1 = LED_Pin_2; 
-	while(count <= TOTAL1)
+	while(count <= TOTAL2)
 	{
 	color_id?RGB_LED_Write_24Bits(0x20,0X7F,0X00):RGB_LED_Write_24Bits(0x60,0X00,0X43);
 	count++;
@@ -225,7 +255,7 @@ void Finish_target(void)//激活成功
 	count++;
 	}
 	
-	success_count++;
+//	success_count++;
 	if(success_count != 5) Get_next_lamp();
 }
 
@@ -257,14 +287,22 @@ void windmill_Process(void)
 
 			 
    }
-	 MOVE_Process();
+	 HAL_Delay(30);
+//	 MOVE_Process();
 }
 
 void fortest(void)
 {
-	queue_insert(1);
-	queue_insert(2);
-	queue_insert(7);
-	queue_insert(8);
-	
+		LED_PORT_1 = Lamp1_1_GPIO_Port;
+		LED_PORT_2 = Lamp1_2_GPIO_Port;
+		LED_PORT_3 = Lamp1_3_GPIO_Port;
+		LED_Pin_1  = Lamp1_1_Pin;
+		LED_Pin_2  = Lamp1_2_Pin;
+		LED_Pin_3  = Lamp1_3_Pin;
+	  queue_insert(7);
+
+	for(int i = 0;i < 18; i++ )
+	    queue_insert(8);
+
+
 }
