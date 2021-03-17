@@ -147,7 +147,7 @@ void TaskRUN(void const * argument)
 //    RGB_LED_Write0();
 		
 		windmill_Process();
-
+    queue_insert(2);
     osDelay(1);
   }
   /* USER CODE END TaskRUN */

@@ -53,62 +53,63 @@ void param_init(void)
 	
 	st = ed = 0;
 	queue_num = 0;
-	color_id = 0;
+	color_id = 1;
 	memset(queue, 0, sizeof queue);
 }
 
 /******light water*********/
 void Run_led()
 {
-		  if(success_count == 5) return;
-	    if(run_time_num > 156) {queue_insert(led_reset);return;}//超过2.5s未击中
-			run_time_num ++;
-			flow_num++;
-			if(flow_num >= 2) flow_num -= 2;//每47ms，流动一次
-			if(flow_num) return;
-			Led_reset();
-	    count = 1;
-			start0--;
-			if(start0 < 1) start0 += 7;
-			period_count = start0;
-			while(count <= TOTAL2)
-			{
-				 //if(count == MAX_NUM) break;
-				if(period_count>=5){
-						color_id?RGB_LED_Write_24Bits(0x20,0X7F,0X00):RGB_LED_Write_24Bits(0x60,0X00,0X43);
-					}
-					else RGB_LED_Write_24Bits(0x00,0X00,0X00);
-					
+//		if(success_count == 5) return;
+//		if(run_time_num > 156) {queue_insert(fail_hit);return;}//超过2.5s未击中
+//		run_time_num ++;
+//		flow_num++;
+//		if(flow_num >= 2) flow_num -= 2;//每47ms，流动一次
+//		if(flow_num) return;
+//		Led_reset();
+		count = 1;
+		start0--;
+		if(start0 < 1) start0 += 7;
+		period_count = start0;
+		while(count <= TOTAL2)
+		{
+			 //if(count == MAX_NUM) break;
+			if(period_count>=5){
+					color_id?RGB_LED_Write_24Bits(0x20,0X7F,0X00):RGB_LED_Write_24Bits(0x60,0X00,0X43);
+				}
+				else RGB_LED_Write_24Bits(0x00,0X00,0X00);
 				
-					count++;
-	
-					if(count == MAX_NUM){//第二排 上
-							period_count = 6 - period_count;
-							if(period_count < 1) period_count += 7;
-					}
-					else if(count == 2*MAX_NUM + 1){//第三排 下
-							period_count = 6 - period_count;
-							if(period_count > 7) period_count -= 7;
-					}		
-					else if(count == 3*MAX_NUM + 1){//第四排 上
-							period_count = 1 - period_count;
-							if(period_count < 1) period_count += 7;
-					}
-					else if(count == 4*MAX_NUM + 1){//第五排 下
-							period_count = 1 -  period_count;
-							if(period_count > 7) period_count -= 7;
-					}
-					else if(count == 5*MAX_NUM + 1){//第六排 上
-							period_count = 6 - period_count;
-							if(period_count > 7) period_count -= 7;
-					}
-					else if(count == 6*MAX_NUM + 1){//第七排 下
-							period_count = 1 - period_count;
-							if(period_count > 7) period_count -= 7;
-					}
-					else period_count ++;
-					if(period_count > 7) period_count -= 7;
-	 }
+			
+				count++;
+
+				if(count == MAX_NUM + 1){//第二排 上
+						period_count = 6 - period_count;
+						if(period_count < 1) period_count += 7;
+				}
+				else if(count == 2*MAX_NUM + 1){//第三排 下
+						period_count = 4 - period_count;
+						if(period_count > 7) period_count -= 7;
+				}		
+				else if(count == 3*MAX_NUM + 1){//第四排 上
+						period_count = 6 - period_count;
+						if(period_count < 1) period_count += 7;
+				}
+				else if(count == 4*MAX_NUM + 1){//第五排 下
+						period_count = 6 -  period_count;
+						if(period_count > 7) period_count -= 7;
+				}
+				else if(count == 5*MAX_NUM + 1){//第六排 上
+						period_count = 4 - period_count;
+						if(period_count > 7) period_count -= 7;
+				}
+				else if(count == 6*MAX_NUM + 1){//第七排 下
+						period_count = 6 - period_count;
+						if(period_count > 7) period_count -= 7;
+				}
+				else period_count ++;
+				if(period_count > 7) period_count -= 7;
+	  }
+					 HAL_Delay(100);
 }
 
 
@@ -116,30 +117,29 @@ void WS2812_reset(void)
 {
 	success_count = 0;
 	int count = 1;
-	while(count <= TOTAL1) {
+	while(count <= TOTAL2) {
 	  RGB_LED_Write_24Bits(0x00,0X00,0X00);
 	  count++;
 	}
 	
 	count = 1;
-	LED_PORT_1 = LED_PORT_2;
-	LED_Pin_1 = LED_Pin_2; 
-	while(count <= TOTAL2)
+	LED_PORT_2 = LED_PORT_1;
+	LED_Pin_2 = LED_Pin_1; 
+	while(count <= TOTAL1)
 	{
 	  RGB_LED_Write_24Bits(0x00,0X00,0X00);
 	  count++;
 	}
 	
 	count = 1;
-	LED_PORT_1 = LED_PORT_3;
-	LED_Pin_1 = LED_Pin_3; 
+	LED_PORT_2 = LED_PORT_3;
+	LED_Pin_2 = LED_Pin_3; 
 	while(count <= TOTAL3)
 	{
     RGB_LED_Write_24Bits(0x00,0X00,0X00);
 	  count++;
 	}
   Get_next_lamp();
-
 }
 
 void Reset(void){
@@ -232,31 +232,32 @@ void Get_next_lamp(void)
 void Finish_target(void)//激活成功
 {
 	int count = 1;
-	while(count <= TOTAL1) {
-	  color_id?RGB_LED_Write_24Bits(0x20,0X7F,0X00):RGB_LED_Write_24Bits(0x60,0X00,0X43);
+	while(count <= TOTAL2) {
+	  color_id?RGB_LED_Write_24Bits(0x8A,0X36,0X0F):RGB_LED_Write_24Bits(0x60,0X00,0X43);
 	  count++;
 	}
 	
 	count = 1;
-	LED_PORT_1 = LED_PORT_2;
-	LED_Pin_1 = LED_Pin_2; 
-	while(count <= TOTAL2)
+	LED_PORT_2 = LED_PORT_1;
+	LED_Pin_2 = LED_Pin_1; 
+	while(count <= TOTAL1)
 	{
-	color_id?RGB_LED_Write_24Bits(0x20,0X7F,0X00):RGB_LED_Write_24Bits(0x60,0X00,0X43);
+	color_id?RGB_LED_Write_24Bits(0x8A,0X36,0X0F):RGB_LED_Write_24Bits(0x60,0X00,0X43);
 	count++;
 	}
 	
 	count = 1;
-	LED_PORT_1 = LED_PORT_3;
-	LED_Pin_1 = LED_Pin_3; 
+	LED_PORT_2 = LED_PORT_3;
+	LED_Pin_2 = LED_Pin_3; 
 	while(count <= TOTAL3)
 	{
-	color_id?RGB_LED_Write_24Bits(0x20,0X7F,0X00):RGB_LED_Write_24Bits(0x60,0X00,0X43);
+	color_id?RGB_LED_Write_24Bits(0x8A,0X36,0X0F):RGB_LED_Write_24Bits(0x60,0X00,0X43);
 	count++;
 	}
 	
 //	success_count++;
 	if(success_count != 5) Get_next_lamp();
+		 HAL_Delay(2000);
 }
 
 
@@ -283,11 +284,9 @@ void windmill_Process(void)
 		 case success_hit:
 			  Finish_target();break;
 		 case fail_hit:
-			  Reset();break;
-
-			 
+			  WS2812_reset();break;
    }
-	 HAL_Delay(30);
+
 //	 MOVE_Process();
 }
 
@@ -299,10 +298,9 @@ void fortest(void)
 		LED_Pin_1  = Lamp1_1_Pin;
 		LED_Pin_2  = Lamp1_2_Pin;
 		LED_Pin_3  = Lamp1_3_Pin;
-	  queue_insert(7);
-
-	for(int i = 0;i < 18; i++ )
-	    queue_insert(8);
-
+//	  queue_insert(7);
+//	  queue_insert(8);
+//	for(int i =1; i < 10; i++)
+//    queue_insert(2);
 
 }

@@ -1,8 +1,8 @@
 
 #include "ws2812.h"
 
-#define     RGB_LED_HIGH    (HAL_GPIO_WritePin(LED_PORT_1, LED_Pin_1, GPIO_PIN_SET))
-#define     RGB_LED_LOW     (HAL_GPIO_WritePin(LED_PORT_1, LED_Pin_1, GPIO_PIN_RESET))
+#define     RGB_LED_HIGH    (HAL_GPIO_WritePin(LED_PORT_2, LED_Pin_2, GPIO_PIN_SET))
+#define     RGB_LED_LOW     (HAL_GPIO_WritePin(LED_PORT_2, LED_Pin_2, GPIO_PIN_RESET))
 
 
 GPIO_TypeDef* LED_PORT_1;
@@ -18,17 +18,17 @@ void delay_us(uint16_t n)
 void RGB_LED_Write0(void)
 {
   RGB_LED_HIGH;
-  delay_us(6);//4
+  delay_us(7);//4
   RGB_LED_LOW;
-  delay_us(21);//9
+  delay_us(22);//9
 }
 
 void RGB_LED_Write1(void)
 {
 	  RGB_LED_HIGH;
-	  delay_us(25);
+	  delay_us(26);
     RGB_LED_LOW;
-	  delay_us(3);
+	  delay_us(4);
 }
 
 
