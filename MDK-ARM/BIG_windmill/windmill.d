@@ -37,8 +37,6 @@ big_windmill\windmill.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h
 big_windmill\windmill.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h
 big_windmill\windmill.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h
 big_windmill\windmill.o: ../Core/Inc/gpio.h
-big_windmill\windmill.o: ..\project_1\dr16.h
-big_windmill\windmill.o: ../Core/Inc/usart.h
 big_windmill\windmill.o: ..\project_1\motor.h
 big_windmill\windmill.o: ..\project_1\pid.h
 big_windmill\windmill.o: D:\software\keil_v5\ARM\ARMCC\Bin\..\include\stdio.h

@@ -37,8 +37,6 @@ big_windmill\m6020_motor.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_ti
 big_windmill\m6020_motor.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h
 big_windmill\m6020_motor.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h
 big_windmill\m6020_motor.o: ../Core/Inc/gpio.h
-big_windmill\m6020_motor.o: ..\project_1\dr16.h
-big_windmill\m6020_motor.o: ../Core/Inc/usart.h
 big_windmill\m6020_motor.o: ..\project_1\motor.h
 big_windmill\m6020_motor.o: ..\project_1\pid.h
 big_windmill\m6020_motor.o: D:\software\keil_v5\ARM\ARMCC\Bin\..\include\stdio.h

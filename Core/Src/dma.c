@@ -1,8 +1,8 @@
 /**
   ******************************************************************************
-  * File Name          : USART.h
+  * File Name          : dma.c
   * Description        : This file provides code for the configuration
-  *                      of the USART instances.
+  *                      of all the requested memory to memory DMA transfers.
   ******************************************************************************
   * @attention
   *
@@ -16,38 +16,41 @@
   *
   ******************************************************************************
   */
-/* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __usart_H
-#define __usart_H
-#ifdef __cplusplus
- extern "C" {
-#endif
 
 /* Includes ------------------------------------------------------------------*/
-#include "main.h"
+#include "dma.h"
 
-/* USER CODE BEGIN Includes */
-#include "windmill.h"
-/* USER CODE END Includes */
+/* USER CODE BEGIN 0 */
 
-extern UART_HandleTypeDef huart2;
+/* USER CODE END 0 */
 
-/* USER CODE BEGIN Private defines */
+/*----------------------------------------------------------------------------*/
+/* Configure DMA                                                              */
+/*----------------------------------------------------------------------------*/
 
-/* USER CODE END Private defines */
+/* USER CODE BEGIN 1 */
 
-void MX_USART2_UART_Init(void);
+/* USER CODE END 1 */
 
-/* USER CODE BEGIN Prototypes */
-void UART2_RxStart(void);
-extern uint8_t uart2_buf;
+/**
+  * Enable DMA controller clock
+  */
+void MX_DMA_Init(void)
+{
 
-/* USER CODE END Prototypes */
+  /* DMA controller clock enable */
+  __HAL_RCC_DMA1_CLK_ENABLE();
 
-#ifdef __cplusplus
+  /* DMA interrupt init */
+  /* DMA1_Stream5_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(DMA1_Stream5_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(DMA1_Stream5_IRQn);
+
 }
-#endif
-#endif /*__ usart_H */
+
+/* USER CODE BEGIN 2 */
+
+/* USER CODE END 2 */
 
 /**
   * @}

@@ -1,3 +1,0 @@
-osThreadId RUNHandle;
-osThreadId MSGHandle;
-osMessageQId RDHandle;

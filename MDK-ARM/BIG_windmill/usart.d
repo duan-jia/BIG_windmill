@@ -33,3 +33,15 @@ big_windmill\usart.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h
 big_windmill\usart.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h
 big_windmill\usart.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h
 big_windmill\usart.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h
+big_windmill\usart.o: ..\project_1\windmill.h
+big_windmill\usart.o: ..\project_1\headfile.h
+big_windmill\usart.o: D:\software\keil_v5\ARM\ARMCC\Bin\..\include\math.h
+big_windmill\usart.o: ../Core/Inc/can.h
+big_windmill\usart.o: ../Core/Inc/gpio.h
+big_windmill\usart.o: ..\project_1\motor.h
+big_windmill\usart.o: ..\project_1\pid.h
+big_windmill\usart.o: D:\software\keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+big_windmill\usart.o: ../Core/Inc/tim.h
+big_windmill\usart.o: D:\software\keil_v5\ARM\ARMCC\Bin\..\include\string.h
+big_windmill\usart.o: ..\project_1\M6020_motor.h
+big_windmill\usart.o: ..\project_1\ws2812.h

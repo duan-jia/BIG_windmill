@@ -7,7 +7,6 @@
 /****diver****/
 #include "can.h"
 #include "gpio.h"
-#include "dr16.h"
 #include "motor.h"
 #include "pid.h"
 #include "tim.h"

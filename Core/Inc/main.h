@@ -82,6 +82,10 @@ void Error_Handler(void);
 #define Lamp4_2_GPIO_Port GPIOA
 #define Lamp4_3_Pin GPIO_PIN_10
 #define Lamp4_3_GPIO_Port GPIOA
+#define blueteeth_T_Pin GPIO_PIN_5
+#define blueteeth_T_GPIO_Port GPIOD
+#define blueteeth_R_Pin GPIO_PIN_6
+#define blueteeth_R_GPIO_Port GPIOD
 #define LED1_Pin GPIO_PIN_6
 #define LED1_GPIO_Port GPIOB
 #define Lamp5_1_Pin GPIO_PIN_8

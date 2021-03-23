@@ -48,10 +48,11 @@
 
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN Variables */
-osPoolId RDmemHandle;
+//osPoolId RDmemHandle;
 /* USER CODE END Variables */
 osThreadId RUNHandle;
 osThreadId MSGHandle;
+osThreadId flow_arrowHandle;
 osMessageQId RDHandle;
 
 /* Private function prototypes -----------------------------------------------*/
@@ -61,6 +62,7 @@ osMessageQId RDHandle;
 
 void TaskRUN(void const * argument);
 void TaskMSG(void const * argument);
+void Task_flow_arrow(void const * argument);
 
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
@@ -87,8 +89,8 @@ void vApplicationGetIdleTaskMemory( StaticTask_t **ppxIdleTaskTCBBuffer, StackTy
   */
 void MX_FREERTOS_Init(void) {
   /* USER CODE BEGIN Init */
-  osPoolDef(RDmem,16,RemoteData_t);
-  RDmemHandle = osPoolCreate(osPool(RDmem));
+//  osPoolDef(RDmem,16,RemoteData_t);
+//  RDmemHandle = osPoolCreate(osPool(RDmem));
   /* USER CODE END Init */
 
   /* USER CODE BEGIN RTOS_MUTEX */
@@ -114,12 +116,16 @@ void MX_FREERTOS_Init(void) {
 
   /* Create the thread(s) */
   /* definition and creation of RUN */
-  osThreadDef(RUN, TaskRUN, osPriorityHigh, 0, 128);
+  osThreadDef(RUN, TaskRUN, osPriorityAboveNormal, 0, 128);
   RUNHandle = osThreadCreate(osThread(RUN), NULL);
 
   /* definition and creation of MSG */
-  osThreadDef(MSG, TaskMSG, osPriorityRealtime, 0, 128);
+  osThreadDef(MSG, TaskMSG, osPriorityHigh, 0, 128);
   MSGHandle = osThreadCreate(osThread(MSG), NULL);
+
+  /* definition and creation of flow_arrow */
+  osThreadDef(flow_arrow, Task_flow_arrow, osPriorityHigh, 0, 128);
+  flow_arrowHandle = osThreadCreate(osThread(flow_arrow), NULL);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
@@ -143,11 +149,7 @@ void TaskRUN(void const * argument)
   fortest();
   for(;;)
   {
-//		MOVE_Process();
-//    RGB_LED_Write0();
-		
 		windmill_Process();
-    queue_insert(2);
     osDelay(1);
   }
   /* USER CODE END TaskRUN */
@@ -163,18 +165,35 @@ void TaskRUN(void const * argument)
 void TaskMSG(void const * argument)
 {
   /* USER CODE BEGIN TaskMSG */
+	uint8_t last_buf = 0;
   /* Infinite loop */
   for(;;)
   {
-    RemoteData_t *RDMsg = (RemoteData_t *)osPoolAlloc(RDmemHandle);
-    if(RDMsg != NULL)
-    {
-        RemoteDataMsg_Process(RDMsg);    
-        osMessagePut(RDHandle,(uint32_t)RDMsg,10);
-    }
+    if(last_buf != uart2_buf)queue_insert(uart2_buf);
+		last_buf = uart2_buf;
     osDelay(10);
   }
   /* USER CODE END TaskMSG */
+}
+
+/* USER CODE BEGIN Header_Task_flow_arrow */
+/**
+* @brief Function implementing the flow_arrow thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_Task_flow_arrow */
+void Task_flow_arrow(void const * argument)
+{
+  /* USER CODE BEGIN Task_flow_arrow */
+  /* Infinite loop */
+  for(;;)
+  {
+		if(flow_state)Run_led();
+    osDelay(1);
+
+  }
+  /* USER CODE END Task_flow_arrow */
 }
 
 /* Private application code --------------------------------------------------*/

@@ -37,8 +37,6 @@ big_windmill\ws2812.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h
 big_windmill\ws2812.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h
 big_windmill\ws2812.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h
 big_windmill\ws2812.o: ../Core/Inc/gpio.h
-big_windmill\ws2812.o: ..\project_1\dr16.h
-big_windmill\ws2812.o: ../Core/Inc/usart.h
 big_windmill\ws2812.o: ..\project_1\motor.h
 big_windmill\ws2812.o: ..\project_1\pid.h
 big_windmill\ws2812.o: D:\software\keil_v5\ARM\ARMCC\Bin\..\include\stdio.h

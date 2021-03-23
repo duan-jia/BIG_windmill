@@ -47,13 +47,13 @@ big_windmill\main.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h
 big_windmill\main.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/semphr.h
 big_windmill\main.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h
 big_windmill\main.o: ../Core/Inc/can.h
+big_windmill\main.o: ../Core/Inc/dma.h
 big_windmill\main.o: ../Core/Inc/tim.h
 big_windmill\main.o: ../Core/Inc/usart.h
-big_windmill\main.o: ../Core/Inc/gpio.h
 big_windmill\main.o: ..\project_1\windmill.h
 big_windmill\main.o: ..\project_1\headfile.h
 big_windmill\main.o: D:\software\keil_v5\ARM\ARMCC\Bin\..\include\math.h
-big_windmill\main.o: ..\project_1\dr16.h
+big_windmill\main.o: ../Core/Inc/gpio.h
 big_windmill\main.o: ..\project_1\motor.h
 big_windmill\main.o: ..\project_1\pid.h
 big_windmill\main.o: D:\software\keil_v5\ARM\ARMCC\Bin\..\include\stdio.h

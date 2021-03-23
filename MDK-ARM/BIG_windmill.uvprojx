@@ -338,7 +338,7 @@
               <MiscControls></MiscControls>
               <Define>USE_HAL_DRIVER,STM32F407xx</Define>
               <Undefine></Undefine>
-              <IncludePath>../Core/Inc;          ../Drivers/STM32F4xx_HAL_Driver/Inc;          ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy;          ../Drivers/CMSIS/Device/ST/STM32F4xx/Include;          ../Drivers/CMSIS/Include;          ..\project_1;  ../Middlewares/Third_Party/FreeRTOS/Source/include;  ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS;  ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F</IncludePath>
+              <IncludePath>../Core/Inc;                 ../Drivers/STM32F4xx_HAL_Driver/Inc;                 ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy;                 ../Drivers/CMSIS/Device/ST/STM32F4xx/Include;                 ../Drivers/CMSIS/Include;                 ..\project_1;         ../Middlewares/Third_Party/FreeRTOS/Source/include;         ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS;         ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -411,6 +411,11 @@
               <FileName>can.c</FileName>
               <FileType>1</FileType>
               <FilePath>../Core/Src/can.c</FilePath>
+            </File>
+            <File>
+              <FileName>dma.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>../Core/Src/dma.c</FilePath>
             </File>
             <File>
               <FileName>tim.c</FileName>
@@ -542,11 +547,6 @@
         <Group>
           <GroupName>New Group</GroupName>
           <Files>
-            <File>
-              <FileName>dr16.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\project_1\dr16.c</FilePath>
-            </File>
             <File>
               <FileName>pid.c</FileName>
               <FileType>1</FileType>

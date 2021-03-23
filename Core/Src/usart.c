@@ -22,11 +22,11 @@
 
 /* USER CODE BEGIN 0 */
 //#include "tim.h"
-uint8_t uart_tmp = 0;
-uint8_t uart1_buf[18] = {0};
+uint8_t uart2_buf = 0;
 /* USER CODE END 0 */
 
 UART_HandleTypeDef huart2;
+DMA_HandleTypeDef hdma_usart2_rx;
 
 /* USART2 init function */
 
@@ -65,12 +65,31 @@ void HAL_UART_MspInit(UART_HandleTypeDef* uartHandle)
     PD5     ------> USART2_TX
     PD6     ------> USART2_RX
     */
-    GPIO_InitStruct.Pin = GPIO_PIN_5|GPIO_PIN_6;
+    GPIO_InitStruct.Pin = blueteeth_T_Pin|blueteeth_R_Pin;
     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
     GPIO_InitStruct.Pull = GPIO_NOPULL;
     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
     GPIO_InitStruct.Alternate = GPIO_AF7_USART2;
     HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
+
+    /* USART2 DMA Init */
+    /* USART2_RX Init */
+    hdma_usart2_rx.Instance = DMA1_Stream5;
+    hdma_usart2_rx.Init.Channel = DMA_CHANNEL_4;
+    hdma_usart2_rx.Init.Direction = DMA_PERIPH_TO_MEMORY;
+    hdma_usart2_rx.Init.PeriphInc = DMA_PINC_DISABLE;
+    hdma_usart2_rx.Init.MemInc = DMA_MINC_ENABLE;
+    hdma_usart2_rx.Init.PeriphDataAlignment = DMA_PDATAALIGN_BYTE;
+    hdma_usart2_rx.Init.MemDataAlignment = DMA_MDATAALIGN_BYTE;
+    hdma_usart2_rx.Init.Mode = DMA_CIRCULAR;
+    hdma_usart2_rx.Init.Priority = DMA_PRIORITY_VERY_HIGH;
+    hdma_usart2_rx.Init.FIFOMode = DMA_FIFOMODE_DISABLE;
+    if (HAL_DMA_Init(&hdma_usart2_rx) != HAL_OK)
+    {
+      Error_Handler();
+    }
+
+    __HAL_LINKDMA(uartHandle,hdmarx,hdma_usart2_rx);
 
     /* USART2 interrupt Init */
     HAL_NVIC_SetPriority(USART2_IRQn, 0, 0);
@@ -96,7 +115,10 @@ void HAL_UART_MspDeInit(UART_HandleTypeDef* uartHandle)
     PD5     ------> USART2_TX
     PD6     ------> USART2_RX
     */
-    HAL_GPIO_DeInit(GPIOD, GPIO_PIN_5|GPIO_PIN_6);
+    HAL_GPIO_DeInit(GPIOD, blueteeth_T_Pin|blueteeth_R_Pin);
+
+    /* USART2 DMA DeInit */
+    HAL_DMA_DeInit(uartHandle->hdmarx);
 
     /* USART2 interrupt Deinit */
     HAL_NVIC_DisableIRQ(USART2_IRQn);
@@ -107,9 +129,9 @@ void HAL_UART_MspDeInit(UART_HandleTypeDef* uartHandle)
 }
 
 /* USER CODE BEGIN 1 */
-void UART2_DMARxStart(void)
+void UART2_RxStart(void)
 {
-    HAL_UART_Receive_DMA(&huart2,uart1_buf,18);
+    HAL_UART_Receive_DMA(&huart2,&uart2_buf,1);
 }
 
 void HAL_UART_RxCpltcallback(UART_HandleTypeDef *huart)
@@ -119,12 +141,11 @@ void HAL_UART_RxCpltcallback(UART_HandleTypeDef *huart)
     /* NOTE: This function should not be modified, when the callback is needed,
              the HAL_UART_RxCpltCallback could be implemented in the user file
     */
-    if(huart->Instance == USART1)
+    if(huart->Instance == USART2)
     {
-//        Observer.Rx.DR16_Rate++;
-        HAL_UART_Receive_DMA(&huart2,uart1_buf,18);
+       HAL_UART_Receive_DMA(&huart2,&uart2_buf,1);
     }
-
+    
 }
 
 
