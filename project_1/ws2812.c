@@ -141,9 +141,6 @@ void RGB_LED3_Write_24Bits(uint8_t green,uint8_t red,uint8_t blue)//GRB......
 }
 
 
-
-
-
 void Led_reset(void)
 {
 	 RGB_LED1_LOW;

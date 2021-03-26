@@ -21,15 +21,19 @@
 #define MAX_NUM 62   //中间每排灯珠数
 #define TOTAL1 130 //上边灯数unknow
 #define TOTAL2 62*7 //中间边灯数433
-#define TOTAL3 130  //下边灯数130
+#define TOTAL3 (130+14)  //下边灯数130
+#define TOTAL4  100 //for armour
+#define TOTAL5  100 //for armour
 
 extern _Bool flow_state;
 
 void windmill_Process(void);
 uint8_t queue_get(void);
 void queue_insert(uint8_t control_id);
-void fortest(void);
 void Get_next_lamp(void);
 void Run_led(void);
 void param_init(void);
+void WS2812_reset(void);
+void change_lamp(int i);
+void armour(void);
 #endif

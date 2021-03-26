@@ -146,7 +146,7 @@ void TaskRUN(void const * argument)
   /* Infinite loop */
 //  MOVE_pidinit();
 	param_init();
-  fortest();
+	WS2812_reset();
   for(;;)
   {
 		windmill_Process();
