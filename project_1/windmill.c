@@ -12,9 +12,9 @@ uint16_t Start;
 uint16_t run_time_num, flow_num ;//flow_num控制流动时间间隔,run_time_num用于判定是否超时
 uint8_t target, success_count, Random_Num;
 uint8_t queue[20], st, ed, queue_num;
-uint8_t number[] = {1,2,3,4,5};
-_Bool color_id ,flow_state;
-int start0 , period_count ;
+uint8_t number[] = {2,3,4,5};
+_Bool color_id ,flow_state,armour_state;
+int start0,period_count;
 
 uint8_t queue_get(void)
 {
@@ -50,6 +50,7 @@ void param_init(void)
 	run_time_num = 0;
 	flow_num = 0;
 	flow_state = 0;
+	armour_state = 1;
 	st = ed = 0;
 	queue_num = 0;
 	color_id = 1;
@@ -130,6 +131,14 @@ void WS2812_reset(void)
 			count3++;
 		}
   }
+	armour_state = 1;
+	flow_state = 1;
+	LED_PORT_1 = Lamp1_1_GPIO_Port;
+	LED_PORT_2 = Lamp1_2_GPIO_Port;
+	LED_PORT_3 = Lamp1_3_GPIO_Port;
+	LED_Pin_1  = Lamp1_1_Pin;
+	LED_Pin_2  = Lamp1_2_Pin;
+	LED_Pin_3  = Lamp1_3_Pin;
 }
 
 
@@ -190,7 +199,7 @@ void Get_next_lamp(void)
 //	flow_num = 0;
 //	run_time_num = 0;
   if(success_count == 5) return;
-	if(Random_Num == 5) return;
+	if(Random_Num == 4) return;
 	target = number[Random_Num];//将要点亮的灯的序号U8 number[] = {1,2,3,4,5};初始化时为target赋值为1
 	Random_Num++;	 
 	switch(target){
@@ -240,6 +249,7 @@ void Get_next_lamp(void)
 			 LED_Pin_3  = Lamp5_3_Pin;
 		 };break;
 	 }
+	armour_state = 1;
 	flow_state = 1;
 
 }
@@ -271,26 +281,43 @@ void Finish_target(void)//激活成功
 }
 void armour(void)
 {
-	int count1 = 1,count2 = 1;
-	while(count1 <= TOTAL4)
+	int count1 = 1,count2 = 1 ;
+
+//	while(count1 <= TOTAL1)
+//	{
+//	  color_id?RGB_LED1_Write_24Bits(0x20,0X7F,0X00):RGB_LED1_Write_24Bits(0x60,0X00,0X43);
+//	  count1++;
+//	}
+//	while(count3 <= TOTAL3)
+//	{
+//	  color_id?RGB_LED3_Write_24Bits(0x20,0X7F,0X00):RGB_LED3_Write_24Bits(0x60,0X00,0X43);
+//		count3++;
+//	}
+  while(count1 <= TOTAL1)
 	{
-		RGB_LED1_Write_24Bits(0x00,0X00,0X00);
+		if(count1 <= TOTAL4 )
+    {
+			RGB_LED1_Write_24Bits(0x00,0X00,0X00);
+		}
+		else 
+		{
+			color_id?RGB_LED1_Write_24Bits(0x20,0X7F,0X00):RGB_LED1_Write_24Bits(0x60,0X00,0X43);
+		}
 		count1++;
 	}
-	while(count1 <= TOTAL1)
+
+	
+	while(count2 <= TOTAL3)
 	{
-		color_id?RGB_LED1_Write_24Bits(0x20,0X7F,0X00):RGB_LED1_Write_24Bits(0x60,0X00,0X43);
-	  count1++;
-	}
-	while(count2 <= TOTAL5)
-	{
-		RGB_LED3_Write_24Bits(0x00,0X00,0X00);
+		if(count2 <= TOTAL5 )
+    {
+			RGB_LED3_Write_24Bits(0x00,0X00,0X00);
+		}
+		else 
+		{
+			color_id?RGB_LED3_Write_24Bits(0x20,0X7F,0X00):RGB_LED3_Write_24Bits(0x60,0X00,0X43);
+		}
 		count2++;
-	}
-	while(count1 <= TOTAL3)
-	{
-		color_id?RGB_LED3_Write_24Bits(0x20,0X7F,0X00):RGB_LED1_Write_24Bits(0x60,0X00,0X43);
-	  count2++;
 	}
 }	
 
@@ -299,8 +326,9 @@ void windmill_Process(void)
 {
 	 switch(queue_get())
 	 {
-		 case run_led:
-			 armour(); break;    
+		 case armour_ok:
+			 flow_state = 0;
+			 Finish_target();break;
 		 case success_hit:
 			 flow_state = 0;
 			 Finish_target();break;

@@ -22,17 +22,17 @@ void delay_us(uint16_t n)
 void RGB_LED1_Write0(void)
 {
   RGB_LED1_HIGH;
-  delay_us(7);//4
+  delay_us(6);//4
   RGB_LED1_LOW;
-  delay_us(22);//9
+  delay_us(21);//9
 }
 
 void RGB_LED1_Write1(void)
 {
 	  RGB_LED1_HIGH;
-	  delay_us(26);
+	  delay_us(25);
     RGB_LED1_LOW;
-	  delay_us(4);
+	  delay_us(3);
 }
 
 void RGB_LED1_Write_Byte(uint8_t byte)
@@ -62,17 +62,17 @@ void RGB_LED1_Write_24Bits(uint8_t green,uint8_t red,uint8_t blue)//GRB......
 void RGB_LED2_Write0(void)
 {
   RGB_LED2_HIGH;
-  delay_us(7);//4
+  delay_us(6);//4
   RGB_LED2_LOW;
-  delay_us(22);//9
+  delay_us(21);//9
 }
 
 void RGB_LED2_Write1(void)
 {
 	  RGB_LED2_HIGH;
-	  delay_us(26);
+	  delay_us(25);
     RGB_LED2_LOW;
-	  delay_us(4);
+	  delay_us(3);
 }
 
 void RGB_LED2_Write_Byte(uint8_t byte)
@@ -103,17 +103,17 @@ void RGB_LED2_Write_24Bits(uint8_t green,uint8_t red,uint8_t blue)//GRB......
 void RGB_LED3_Write0(void)
 {
   RGB_LED3_HIGH;
-  delay_us(7);//4
+  delay_us(6);//4
   RGB_LED3_LOW;
-  delay_us(22);//9
+  delay_us(21);//9
 }
 
 void RGB_LED3_Write1(void)
 {
 	  RGB_LED3_HIGH;
-	  delay_us(26);
+	  delay_us(25);
     RGB_LED3_LOW;
-	  delay_us(4);
+	  delay_us(3);
 }
 
 void RGB_LED3_Write_Byte(uint8_t byte)

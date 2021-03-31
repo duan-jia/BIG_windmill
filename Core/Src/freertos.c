@@ -189,6 +189,11 @@ void Task_flow_arrow(void const * argument)
   /* Infinite loop */
   for(;;)
   {
+		if(armour_state)
+		{
+			armour();
+			armour_state = 0;
+		}
 		if(flow_state)Run_led();
     osDelay(1);
 
