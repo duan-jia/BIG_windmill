@@ -29,26 +29,26 @@ void RGB_LED1_Write0(void)
 
 void RGB_LED1_Write1(void)
 {
-	  RGB_LED1_HIGH;
-	  delay_us(25);
-    RGB_LED1_LOW;
-	  delay_us(3);
+	RGB_LED1_HIGH;
+	delay_us(25);
+	RGB_LED1_LOW;
+	delay_us(3);
 }
 
 void RGB_LED1_Write_Byte(uint8_t byte)
 {
 	uint8_t i;
-	for(i=0;i<8;i++)
-			{
-					if(byte&0x80)
-					{
-									RGB_LED1_Write1();
-					}
-					else
-					{
-									RGB_LED1_Write0();
-					}
-			byte <<= 1;
+	for (i = 0; i < 8; i++)
+	{
+		if (byte & 0x80)
+		{
+			RGB_LED1_Write1();
+		}
+		else
+		{
+			RGB_LED1_Write0();
+		}
+		byte <<= 1;
 	}
 }
 
@@ -61,34 +61,34 @@ void RGB_LED1_Write_24Bits(uint8_t green,uint8_t red,uint8_t blue)//GRB......
 /***********LED2********************/
 void RGB_LED2_Write0(void)
 {
-  RGB_LED2_HIGH;
-  delay_us(6);//4
-  RGB_LED2_LOW;
-  delay_us(21);//9
+	RGB_LED2_HIGH;
+	delay_us(6); //4
+	RGB_LED2_LOW;
+	delay_us(21); //9
 }
 
 void RGB_LED2_Write1(void)
 {
-	  RGB_LED2_HIGH;
-	  delay_us(25);
-    RGB_LED2_LOW;
-	  delay_us(3);
+	RGB_LED2_HIGH;
+	delay_us(25);
+	RGB_LED2_LOW;
+	delay_us(3);
 }
 
 void RGB_LED2_Write_Byte(uint8_t byte)
 {
 	uint8_t i;
-	for(i=0;i<8;i++)
-			{
-					if(byte&0x80)
-					{
-									RGB_LED2_Write1();
-					}
-					else
-					{
-									RGB_LED2_Write0();
-					}
-			byte <<= 1;
+	for (i = 0; i < 8; i++)
+	{
+		if (byte & 0x80)
+		{
+			RGB_LED2_Write1();
+		}
+		else
+		{
+			RGB_LED2_Write0();
+		}
+		byte <<= 1;
 	}
 }
 
@@ -102,34 +102,34 @@ void RGB_LED2_Write_24Bits(uint8_t green,uint8_t red,uint8_t blue)//GRB......
 /***********LED3********************/
 void RGB_LED3_Write0(void)
 {
-  RGB_LED3_HIGH;
-  delay_us(6);//4
-  RGB_LED3_LOW;
-  delay_us(21);//9
+	RGB_LED3_HIGH;
+	delay_us(6); //4
+	RGB_LED3_LOW;
+	delay_us(21); //9
 }
 
 void RGB_LED3_Write1(void)
 {
-	  RGB_LED3_HIGH;
-	  delay_us(25);
-    RGB_LED3_LOW;
-	  delay_us(3);
+	RGB_LED3_HIGH;
+	delay_us(25);
+	RGB_LED3_LOW;
+	delay_us(3);
 }
 
 void RGB_LED3_Write_Byte(uint8_t byte)
 {
 	uint8_t i;
-	for(i=0;i<8;i++)
-			{
-					if(byte&0x80)
-					{
-									RGB_LED3_Write1();
-					}
-					else
-					{
-									RGB_LED3_Write0();
-					}
-			byte <<= 1;
+	for (i = 0; i < 8; i++)
+	{
+		if (byte & 0x80)
+		{
+			RGB_LED3_Write1();
+		}
+		else
+		{
+			RGB_LED3_Write0();
+		}
+		byte <<= 1;
 	}
 }
 
