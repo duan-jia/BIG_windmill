@@ -144,7 +144,6 @@ void TaskRUN(void const * argument)
 {
   /* USER CODE BEGIN TaskRUN */
   /* Infinite loop */
-//  MOVE_pidinit();
 	param_init();
 	WS2812_reset();
   for(;;)

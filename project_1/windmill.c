@@ -8,32 +8,32 @@
 
 
 /*************************order-control***************************/
-uint16_t Start;
+uint16_t Start;//
 uint16_t run_time_num, flow_num ;//flow_num控制流动时间间隔,run_time_num用于判定是否超时
 uint8_t target, success_count, Random_Num;
-uint8_t queue[20], st, ed, queue_num;
-uint8_t number[] = {2,3,4,5};
+uint8_t queue[20], st, ed, queue_num;//variables used to receive message
+uint8_t number[] = {2,3,4,5};//the order of windmill shine
 _Bool color_id ,flow_state,armour_state;
 int start0,period_count;
-
+/*the function used to recevie message */
 uint8_t queue_get(void)
 {
-		if(!queue_num) return 0;
-		if(queue_num != 0)
-		{
-		  queue_num--;
-		  if(st > 19) st -= 20;
-		  return queue[st++];
-		}
-		return  0;
+	if(!queue_num) return 0;
+	if(queue_num != 0)
+	{
+		queue_num--;
+		if(st > 19) st -= 20;
+		return queue[st++];
+	}
+	return  0;
 }
 
 void queue_insert(uint8_t control_id)
 {
-   queue[ed] = control_id;
-   ed ++;
-   if(ed > 19) ed -= 20;
-   queue_num++;
+	queue[ed] = control_id;
+	ed ++;
+	if(ed > 19) ed -= 20;
+	queue_num++;
 }
 
 void queue_clear(void)
@@ -112,7 +112,7 @@ void WS2812_reset(void)
 {
 	Random_Num = 0;
 	success_count = 0;
-	for(int i = 1; i<6; i++)
+	for(int i = 1; i < 6; i++)
 	{
 		change_lamp(i);
 		int count1 = 1,count2 = 1,count3 = 1;
@@ -198,11 +198,12 @@ void Get_next_lamp(void)
 	start0 = Start;/*初始为1*/
 //	flow_num = 0;
 //	run_time_num = 0;
-  if(success_count == 5) return;
+    if(success_count == 5) return;
 	if(Random_Num == 4) return;
 	target = number[Random_Num];//将要点亮的灯的序号U8 number[] = {1,2,3,4,5};初始化时为target赋值为1
 	Random_Num++;	 
-	switch(target){
+	switch(target)
+	{
 		 case 1:
 		 {
 			 LED_PORT_1 = Lamp1_1_GPIO_Port;
@@ -256,7 +257,7 @@ void Get_next_lamp(void)
 
 void Finish_target(void)//激活成功
 {
-	int count1 = 1,count2 = 1,count3 =1 ;
+	int count1 = 1,count2 = 1,count3 = 1;
 
 	while(count1 <= TOTAL1)
 	{
@@ -273,7 +274,7 @@ void Finish_target(void)//激活成功
 	while(count3 <= TOTAL3)
 	{
 	  color_id?RGB_LED3_Write_24Bits(0x20,0X7F,0X00):RGB_LED3_Write_24Bits(0x60,0X00,0X43);
-		count3++;
+	  count3++;
 	}
 	
 	success_count++;
@@ -282,21 +283,10 @@ void Finish_target(void)//激活成功
 void armour(void)
 {
 	int count1 = 1,count2 = 1 ;
-
-//	while(count1 <= TOTAL1)
-//	{
-//	  color_id?RGB_LED1_Write_24Bits(0x20,0X7F,0X00):RGB_LED1_Write_24Bits(0x60,0X00,0X43);
-//	  count1++;
-//	}
-//	while(count3 <= TOTAL3)
-//	{
-//	  color_id?RGB_LED3_Write_24Bits(0x20,0X7F,0X00):RGB_LED3_Write_24Bits(0x60,0X00,0X43);
-//		count3++;
-//	}
-  while(count1 <= TOTAL1)
-	{
+	while(count1 <= TOTAL1)
+	{ 
 		if(count1 <= TOTAL4 )
-    {
+	    {
 			RGB_LED1_Write_24Bits(0x00,0X00,0X00);
 		}
 		else 
@@ -310,7 +300,7 @@ void armour(void)
 	while(count2 <= TOTAL3)
 	{
 		if(count2 <= TOTAL5 )
-    {
+        {
 			RGB_LED3_Write_24Bits(0x00,0X00,0X00);
 		}
 		else 
@@ -328,18 +318,22 @@ void windmill_Process(void)
 	 {
 		 case armour_ok:
 			 flow_state = 0;
-			 Finish_target();break;
+			 Finish_target();
+			 break;
 		 case success_hit:
 			 flow_state = 0;
-			 Finish_target();break;
+			 Finish_target();
+			 break;
 		 case fail_hit:
 			 flow_state = 0;
 			 WS2812_reset();
-		   break;
+             break;
 		 case orange_color:
-			 color_id = 1; break;
+			 color_id = 1;
+			 break;
 		 case cyan_color:
-			 color_id = 0; break;
+			 color_id = 0;
+			 break;
    }
 }
 
