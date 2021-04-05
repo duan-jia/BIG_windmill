@@ -169,7 +169,7 @@ void TaskMSG(void const * argument)
   for(;;)
   {
     if(last_buf != uart2_buf)queue_insert(uart2_buf);
-		last_buf = uart2_buf;
+		last_buf = uart2_buf;//to recive the message, maybe have better way
     osDelay(10);
   }
   /* USER CODE END TaskMSG */
@@ -188,7 +188,7 @@ void Task_flow_arrow(void const * argument)
   /* Infinite loop */
   for(;;)
   {
-		if(armour_state)
+		if(armour_state)//before the flow effect,lighten the armour
 		{
 			armour();
 			armour_state = 0;

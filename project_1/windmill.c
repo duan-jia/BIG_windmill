@@ -9,7 +9,7 @@
 
 /*************************order-control***************************/
 uint16_t Start;//
-uint16_t run_time_num, flow_num ;//flow_num控制流动时间间隔,run_time_num用于判定是否超时
+uint16_t run_time_num ;//run_time_num用于判定是否超时
 uint8_t target, success_count, Random_Num;
 uint8_t queue[20], st, ed, queue_num;//variables used to receive message
 uint8_t number[] = {2,3,4,5};//the order of windmill shine
@@ -48,7 +48,6 @@ void param_init(void)
 	success_count = 0;
 	Random_Num = 0;
 	run_time_num = 0;
-	flow_num = 0;
 	flow_state = 0;
 	armour_state = 1;
 	st = ed = 0;
@@ -61,9 +60,9 @@ void param_init(void)
 void Run_led(void)
 {
 		if(success_count == 5) {flow_state = 0;return;}
-//		if(run_time_num > 156) {queue_insert(fail_hit);return;}//超过2.5s未击中
+//		if(run_time_num > 156) {queue_insert(fail_hit);return;}
 //		run_time_num ++;
-//		flow_num++;
+//use for timing the miss status(2.5 seconds)
 		int count = 1;
 		start0--;
 		if(start0 < 1) start0 += 7;
@@ -130,7 +129,7 @@ void WS2812_reset(void)
 			RGB_LED3_Write_24Bits(0x00,0X00,0X00);
 			count3++;
 		}
-  }
+  }// why can't i use low level signal 
 	armour_state = 1;
 	flow_state = 1;
 	LED_PORT_1 = Lamp1_1_GPIO_Port;
@@ -195,9 +194,8 @@ void change_lamp(int i)
 
 void Get_next_lamp(void)
 {
-	start0 = Start;/*初始为1*/
-//	flow_num = 0;
-//	run_time_num = 0;
+	start0 = Start;
+//	run_time_num = 0;//
     if(success_count == 5) return;
 	if(Random_Num == 4) return;
 	target = number[Random_Num];//将要点亮的灯的序号U8 number[] = {1,2,3,4,5};初始化时为target赋值为1
@@ -255,7 +253,7 @@ void Get_next_lamp(void)
 
 }
 
-void Finish_target(void)//激活成功
+void Finish_target(void)//successful activtion
 {
 	int count1 = 1,count2 = 1,count3 = 1;
 
