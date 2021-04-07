@@ -1,2 +1,3 @@
 # BIG_windmill
-a little task for myself
+RM big_windmill for visual testing
+CSU FYT
