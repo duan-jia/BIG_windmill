@@ -284,7 +284,7 @@ void armour(void)
 	while(count1 <= TOTAL1)
 	{ 
 		if(count1 <= TOTAL4 )
-	    {
+	  {
 			RGB_LED1_Write_24Bits(0x00,0X00,0X00);
 		}
 		else 
@@ -298,7 +298,7 @@ void armour(void)
 	while(count2 <= TOTAL3)
 	{
 		if(count2 <= TOTAL5 )
-        {
+    {
 			RGB_LED3_Write_24Bits(0x00,0X00,0X00);
 		}
 		else 
@@ -309,6 +309,22 @@ void armour(void)
 	}
 }	
 
+void R_light(void)
+{
+	int count_R = 500;
+	LED_PORT_1 = R_orange_GPIO_Port;
+	LED_Pin_1 = R_orange_Pin;
+	for(int i = 0; i < count_R; i++)
+	{
+		RGB_LED1_Write_24Bits(0x20,0X7F,0X00);
+	}
+	LED_PORT_1 = R_cyan_GPIO_Port;
+	LED_Pin_1 = R_cyan_Pin;
+	for(int i = 0; i < count_R; i++)
+	{
+		RGB_LED1_Write_24Bits(0x60,0X00,0X43);
+	}
+}
 
 void windmill_Process(void)
 {

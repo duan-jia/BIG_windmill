@@ -145,6 +145,7 @@ void TaskRUN(void const * argument)
   /* USER CODE BEGIN TaskRUN */
   /* Infinite loop */
 	param_init();
+	R_light();//下载到工程板单独用（真的抽象）
 	WS2812_reset();
   for(;;)
   {

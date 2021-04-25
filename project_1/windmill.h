@@ -31,4 +31,5 @@ void param_init(void);
 void WS2812_reset(void);
 void change_lamp(int i);
 void armour(void);
+void R_light(void);
 #endif
